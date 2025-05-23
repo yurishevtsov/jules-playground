@@ -1,0 +1,43 @@
+name: Python Application CI
+
+on:
+  push:
+    branches:
+      - jules-first-demo-app # Our current main development branch
+      - main # In case a 'main' branch is used later
+      - master # In case a 'master' branch is used later
+  pull_request:
+    branches:
+      - jules-first-demo-app
+      - main
+      - master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"] # Test on multiple Python versions
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Use a more recent version
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4 # Use a more recent version
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Clear pip cache
+        run: python -m pip cache purge # Using python -m pip for consistency
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          pytest

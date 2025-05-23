@@ -5,3 +5,4 @@ SQLAlchemy
 Flask-OAuthlib
 pytest
 pytest-flask
+Werkzeug==1.0.1
