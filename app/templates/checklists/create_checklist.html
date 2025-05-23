@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Create Checklist{% endblock %}
+
+{% block content %}
+    <h2>Create New Checklist</h2>
+    <form method="POST">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div>
+            <input type="submit" value="Create Checklist">
+            <a href="{{ url_for('checklists') }}" style="margin-left:10px;">Cancel</a>
+        </div>
+    </form>
+{% endblock %}

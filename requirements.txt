@@ -1,0 +1,7 @@
+Flask
+Flask-Login
+Flask-SQLAlchemy
+SQLAlchemy
+Flask-OAuthlib
+pytest
+pytest-flask

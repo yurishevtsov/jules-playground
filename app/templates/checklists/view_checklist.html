@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}{{ checklist.title }}{% endblock %}
+
+{% block content %}
+    <h2>{{ checklist.title }} <a href="{{ url_for('edit_checklist', checklist_id=checklist.id) }}" style="font-size: 0.7em; font-weight:normal;">(Edit Title)</a></h2>
+
+    <h3>Add New Item</h3>
+    <form action="{{ url_for('add_checklist_item', checklist_id=checklist.id) }}" method="POST">
+        <div>
+            <label for="text">Item Text:</label>
+            <input type="text" id="text" name="text" required>
+        </div>
+        <div>
+            <input type="submit" value="Add Item">
+        </div>
+    </form>
+
+    <h3>Items</h3>
+    <ul>
+        {% for item in items %}
+        <li class="checklist-item">
+            <span class="{{ 'completed' if item.completed else '' }}">{{ item.text }}</span>
+            <form action="{{ url_for('toggle_checklist_item', item_id=item.id) }}" method="POST" style="display:inline; margin-left: 10px;">
+                <input type="submit" value="{{ 'Undo' if item.completed else 'Done' }}">
+            </form>
+            <form action="{{ url_for('delete_checklist_item', item_id=item.id) }}" method="POST" style="display:inline;">
+                <input type="submit" value="Remove" onclick="return confirm('Delete this item?');">
+            </form>
+        </li>
+        {% else %}
+        <li>No items in this checklist yet.</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{{ url_for('checklists') }}">Back to All Checklists</a>
+{% endblock %}

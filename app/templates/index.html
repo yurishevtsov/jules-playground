@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Home - My Productivity App{% endblock %}
+
+{% block content %}
+    <h1>Welcome to Your Productivity Hub!</h1>
+    {% if current_user.is_authenticated %}
+        <p>Hello, {{ current_user.name }}! What would you like to do today?</p>
+    {% else %}
+        <p>Please <a href="{{ url_for('login') }}">login</a> to manage your notes and checklists.</p>
+    {% endif %}
+{% endblock %}

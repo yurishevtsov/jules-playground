@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Checklist{% endblock %}
+
+{% block content %}
+    <h2>Edit Checklist: {{ checklist.title }}</h2>
+    <form method="POST">
+        <div>
+            <label for="title">New Title:</label>
+            <input type="text" id="title" name="title" value="{{ checklist.title }}" required>
+        </div>
+        <div>
+            <input type="submit" value="Update Checklist">
+            <a href="{{ url_for('view_checklist', checklist_id=checklist.id) }}" style="margin-left:10px;">Cancel</a>
+        </div>
+    </form>
+{% endblock %}
